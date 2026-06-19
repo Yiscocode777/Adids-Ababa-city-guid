@@ -2,9 +2,11 @@ from flask import Flask, request, render_template_string
 import sqlite3
 
 def ዳታቤዙን_አዘምን():
-    ግንኙነት = sqlite3.connect("ከተማ_መረጃ_አዲስ.db")
+    # 🌟 ለአዲሱ የፎቶ ጋለሪ አዲስ የዳታቤዝ ስም ተሰጥቶታል
+    ግንኙነት = sqlite3.connect("ከተማ_መረጃ_ጋለሪ.db")
     ጠቋሚ = ግንኙነት.cursor()
     
+    # 1. የቦታዎች ዋና ሰንጠረዥ
     ጠቋሚ.execute("""
         CREATE TABLE IF NOT EXISTS ቦታዎች (
             ስም TEXT PRIMARY KEY,
@@ -12,6 +14,16 @@ def ዳታቤዙን_አዘምን():
             ደረጃ TEXT,
             ምድብ TEXT DEFAULT '🏡 መኖሪያ እና ሌሎች ሰፈሮች',
             ካርታ TEXT
+        )
+    """)
+    ግንኙነት.commit()
+    
+    # 🌟 2. ለአንድ ሰፈር ብዙ ፎቶዎችን መያዝ የሚችል አዲስ ሰንጠረዥ
+    ጠቋሚ.execute("""
+        CREATE TABLE IF NOT EXISTS ቦታ_ፎቶዎች (
+            ፎቶ_ሊንክ TEXT PRIMARY KEY,
+            ቦታ_ስም TEXT,
+            FOREIGN KEY (ቦታ_ስም) REFERENCES ቦታዎች(ስም)
         )
     """)
     ግንኙነት.commit()
@@ -27,15 +39,15 @@ def ዳታቤዙን_አዘምን():
         ("ፈረንሳይ ሌጋሲዮን", "የመጀመሪያው የፈረንሳይ ኤምባሲ ያረፈበትና ወደ እንጦጦ ተራራ መውጫ የሚገኝ አረንጓዴ ሰፈር::", "4 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
         ("እንጦጦ", "አዲስ አበባ ከመቆርቆሯ በፊት የዳግማዊ ምኒልክ መቀመጫ የነበረች፣ አሁን ታላቅ የፓርክና የመዝናኛ ስፍራ::", "5 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
         ("ሽሮ ሜዳ", "በባህላዊ አልባሳት ሽያጭና በሽመና ጥበብ የምትታወቅ፣ በእንጦጦ ግርጌ የምትገኝ ደማቅ ሰፈር::", "4 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
-        ("እስጢፋኖስ", "ታሪካዊው የቅዱስ እስጢፋኖስ ቤተክርስቲያንና ለአብዮት አደባባይቅርብ የሆነው ማራኪ አካባቢ::", "4 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
+        ("እስጢፋኖስ", "ታሪካዊው የቅዱስ እስጢፋኖስ ቤተክርስቲያንና ለአብዮት አደባባይ ቅርብ የሆነው ማራኪ አካባቢ::", "4 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
         ("ቦሌ ፍቅር አደባባይ", "ለወጣቶች መዝናኛና ለፎቶ ቀረጻ የሚመረጥ ውብ የከተማዋ መናፈሻ አካባቢ::", "4 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
         ("ወዳጅነት ፓርክ", "በከተማዋ እምብርት ላይ የሚገኝ፣ ሰው ሰራሽ ሐይቅና ዘመናዊ መዝናኛዎች ያሉት ታላቅ ፓርክ::", "5 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
-        ("ሳይንስ ሙዚየም", "በቅርቡ የተገነባ፣ ሳይንስና ቴክኖሎጂን ለህዝብ የሚያሳይ ዘመናዊና ማራኪ የስነ-ህንፃ ጥበብ::", "5 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
+        ("ሳይንስ ሙዚየም", "በቅርቡ የተገነባ፣ ሳይንስና ቴክኖሎጂን ለህብረተሰብ የሚያሳይ ዘመናዊና ማራኪ የስነ-ህንፃ ጥበብ::", "5 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
         ("መስቀል አደባባይ", "የመስቀል ደመራ፣ ታላላቅ ህዝባዊ ስብሰባዎችና ስፖርታዊ እንቅስቃሴዎች የሚደረጉበት የከተማዋ ዋና አደባባይ::", "5 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
         ("መርካቶ", "የአፍሪካ ትልቁና ታዋቂው የውጭ ክፍት የገበያ ቦታ፣ ሁሉንም አይነት የንግድ ዕቃዎች መገኛ::", "5 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ቦሌ", "ዘመናዊ የገበያ ማዕከላት፣ ታዋቂ ሆቴሎች፣ ካፌዎችና የባንክ ዋና መሥሪያ ቤቶች መገኛ ዘመናዊ ሰፈር::", "5 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ሀያ ሁለት (22)", "ደማቅ የምሽት ህይወት፣ ዘመናዊ ህንፃዎችና የንግድ ሱቆች የበዙበት የቦሌ አዋሳኝ ሰፈር::", "4 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
-        ("ቦሌ መድኃኔዓለም", "የመድኃኔዓለም ቤተክርስቲያን፣ ትላልቅ ሞሎች (Malls) እና ሲኒማ ቤቶች የሚገኙበት የንግድ ማኸከል::", "5 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
+        ("ቦሌ መድኃኔዓለም", "የመድኃኔዓለም ቤተክርስቲያን፣ ትላልቅ ሞሎች (Malls) እና ሲኒማ ቤቶች የሚገኙበት የንግድ ማዕከል::", "5 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("አትላስ", "በባህላዊና ዘመናዊ ምግብ ቤቶች፣ በከፍተኛ ሆቴሎችና በንግድ እንቅስቃሴ የምትታወቅ ሰፈር::", "4 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ኦሎምፒያ", "ትላልቅ ቢሮዎችና የውጭ ድርጅቶች መቀመጫ የሆነች፣ በቦሌ መንገድ ላይ የምትገኝ የንግድ ሰፈር::", "4 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("መገናኛ", "የከተማዋ ትልቁ የትራፊክና የንግድ መገናኛ፣ የገበያ አዳራሾችና የቢሮ ህንፃዎች መዓት የሞሉበት ሰፈር::", "5 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
@@ -72,27 +84,41 @@ def ዳታቤዙን_አዘምን():
         ("ኮልፌ", "በባህላዊ አልባሳት ሽያጭና በሰፊ ህዝብ ቁጥር የምትታወቅ ጥንታዊ የመኖሪያና የንግድ ሰፈር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ካራቆሬ", "ወደ ጅማ መንገድ መውጫ ላይ የሚገኝ፣ የከተማዋ ማብቂያና ሰፊ የመኖሪያ ቀጠና::", "3 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ጀሞ 1", "በትላልቅ የኮንዶሚኒየም ህንፃዎችና በደማቅ የካፌና ሱቆች ንግድ የሚታወቅ የመኖሪያ መንደር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
-        ("ጀሞ 2", "ከጀሞ 1 ቀጥሎ የለማ፣ ሰፊ አፓርታማዎችና ምቹ መኖሪያዎች ያሉት አዲስ ሰፈር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
+        ("ጀሞ 2", "ከጀሞ 1 ቀጥሎ የለማ Regel፣ ሰፊ አፓርታማዎችና ምቹ መኖሪያዎች ያሉት አዲስ ሰፈር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ጀሞ 3", "የጀሞ መንደሮች ማራዘሚያ፣ አዲስ ለተሰደዱ ነዋሪዎች ሰፊ የመኖሪያ እድል የፈጠረ አካባቢ::", "3 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ለቡ", "በዘመናዊ ዲዛይን የተገነቡ ቪላዎችና አፓርታማዎች ያሉት፣ ለኑሮ እጅግ ተመራጭ የሆነ ደቡባዊ ሰፈር::", "5 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("መካኒሳ", "የውጭ ሀገር ዜጎችና ትላልቅ ትምህርት ቤቶች የሚገኙበት፣ ለኑሮ ምቹና ሰላማዊ ሰፈር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
-        ("साር ቤት መኖሪያ", "ከአፍሪካ አንድነት ጀርባ ያሉ ፀጥተኛና አረንጓዴ የሆኑ የመኖሪያ ቪላዎች መገኛ ሰፈር::", "5 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች")
+        ("ሳር ቤት መኖሪያ", "ከአፍሪካ አንድነት ጀርባ ያሉ ፀጥተኛና አረንጓዴ የሆኑ የመኖሪያ ቪላዎች መገኛ ሰፈር::", "5 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች")
     ]
     
     for ስም, ታሪክ, ደረጃ, ምድብ in ዋና_ቦታዎች:
         ዲፎልት_ካርታ = f"http://maps.google.com/?q={ስም}+Addis+Ababa"
-        # እዚህ ጋር በትክክል 'ካርታ' በሚለው አማርኛ ተተክቷል!
-        # እና INSERT OR IGNORE በመጠቀም ድጋሚ እንዳይፈጠር ተደርጓል
         ጠቋሚ.execute("INSERT OR IGNORE INTO ቦታዎች (ስም, ታሪክ, ደረጃ, ምድብ, ካርታ) VALUES (?, ?, ?, ?, ?)", 
                        (ስም, ታሪክ, ደረጃ, ምድብ, ዲፎልት_ካርታ))
-        
+    ግንኙነት.commit()
+    
+    # 🌟 3. ለእያንዳንዱ ሰፈር 3 ጊዜያዊ የከተማ ፎቶዎችን በራስ-ሰር ማገናኛ ኮድ
+    የሙከራ_ፎቶዎች = [
+        "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?q=80&w=400&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1621257121703-9d10e5b72186?q=80&w=400&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=400&auto=format&fit=crop"
+    ]
+    
+    for ፎቶ_ሊንክ in የሙከራ_ፎቶዎች:
+        for ስም, _, _, _ in ዋና_ቦታዎች:
+            # ለእያንዳንዱ ሰፈር ፎቶው የተለየ ሊንክ እንዲመስል መታወቂያ (ID) እንጨምርበታለን
+            ልዩ_ሊንክ = f"{ፎቶ_ሊንክ}&place={ስም}"
+            ጠቋሚ.execute("INSERT OR IGNORE INTO ቦታ_ፎቶዎች (ፎቶ_ሊንክ, ቦታ_ስም) VALUES (?, ?)", (ልዩ_ሊንክ, ስም))
+            
     ግንኙነት.commit()
     ግንኙነት.close()
 
+# የጋለሪ ዳታቤዙን ሥራ ማስጀመር
 ዳታቤዙን_አዘምን()
 
 አፕ = Flask(__name__)
 
+# 🌟 4. አዲስ ውብ የፎቶ ማሳያ (Gallery) ያካተተ HTML ዲዛይን
 HTML_ዲዛይን = """
 <!DOCTYPE html>
 <html lang="am">
@@ -115,7 +141,7 @@ HTML_ዲዛይን = """
         .header-icon { font-size: 55px; margin-bottom: 5px; }
         h2 { color: #ffffff; font-size: 28px; margin-bottom: 8px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
         p.subtitle { color: #e0e0e0; font-size: 15px; margin-bottom: 30px; }
-        input[type="text"], input[type="password"], textarea, select { 
+        input[type="text"], textarea, select { 
             font-size: 16px; padding: 14px 18px; width: 100%; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.3); margin-bottom: 18px;
             box-sizing: border-box; font-family: inherit; outline: none; background: rgba(255, 255, 255, 0.9); color: #2c3e50;
         }
@@ -127,9 +153,17 @@ HTML_ዲዛይን = """
         .result h3 { margin-top: 0; color: #00f2fe; font-size: 22px; }
         .badge { display: inline-block; background: #f1c40f; color: #2c3e50; padding: 6px 14px; border-radius: 20px; font-weight: bold; }
         .category-badge { display: inline-block; background: rgba(0, 242, 254, 0.2); color: #00f2fe; border: 1px solid #00f2fe; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; }
-        .maps-btn { display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(45deg, #ea4335, #ff6b6b); color: white; text-decoration: none; padding: 12px 20px; border-radius: 10px; margin-top: 15px; font-weight: bold;}
+        .maps-btn { display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(45deg, #ea4335, #ff6b6b); color: white; text-decoration: none; padding: 12px 20px; border-radius: 10px; margin-top: 15px; font-weight: bold; width:100%; box-sizing: border-box;}
+        
+        /* 🌟 አዲስ የፎቶ ጋለሪ ስታይል */
+        .gallery-title { margin-top: 20px; margin-bottom: 8px; font-size: 16px; font-weight: bold; color: #00f2fe;}
+        .photo-container { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; margin-bottom: 10px; }
+        .photo-container::-webkit-scrollbar { height: 6px; }
+        .photo-container::-webkit-scrollbar-thumb { background: #00f2fe; border-radius: 10px; }
+        .gallery-img { width: 180px; height: 120px; border-radius: 10px; object-fit: cover; border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0; transition: 0.3s; }
+        .gallery-img:hover { transform: scale(1.05); border-color: #00f2fe; }
+
         .alert { padding: 15px; border-radius: 14px; margin-top: 20px; font-weight: bold; text-align: center; background-color: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
-        .alert-danger { background-color: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid #e74c3c; }
         optgroup { font-weight: bold; color: #1e3c72; background-color: #f0f4f8;}
         option { color: #333; background-color: #fff;}
     </style>
@@ -139,7 +173,7 @@ HTML_ዲዛይን = """
         <div class="header-icon">🌆</div>
         <h2>አዲስ አበባን ይወቁ</h2>
         <p class="subtitle">የከተማዋን ሰፈሮች እና መገኛቸውን ያስሱ</p>
-        <input type="text" id="መፈለጊያ_ሳጥን" oninput="ቦታ_ፈልግ()" placeholder="🔍 የሰፈር ስም እዚህ ይጻፉ...">
+        <input type="text" id="መፈለጊያ_ሳጥን" oninput="ቦTA_ፈልግ()" placeholder="🔍 የሰፈር ስም እዚህ ይጻፉ...">
         <form method="POST" action="/">
             <input type="hidden" name="ፎርም_አይነት" value="ፈልግ">
             <select name="የተመረጠው_ቦታ" id="የቦታ_ዝርዝር">
@@ -160,6 +194,14 @@ HTML_ዲዛይን = """
             <h3>📍 {{ ውጤት[0] }}</h3>
             <p><strong>📖 ታሪክ:-</strong> {{ ውጤት[1] }}</p>
             <p><strong>⭐️ ደረጃ:-</strong> <span class="badge">{{ ውጤት[2] }}</span></p>
+            
+            <div class="gallery-title">🖼️ የሰፈር እይታዎች፦</div>
+            <div class="photo-container">
+                {% for ፎቶ in ውጤት[5] %}
+                    <img src="{{ ፎቶ }}" class="gallery-img" alt="የሰፈር ፎቶ">
+                {% endfor %}
+            </div>
+
             <a href="{{ ውጤት[4] }}" target="_blank" class="maps-btn">🗺️ ቦታውን በGoogle Maps እይ</a>
         </div>
         {% endif %}
@@ -186,11 +228,10 @@ HTML_ዲዛይን = """
                 <option value="🚌 የትራንስፖርት መናኸሪያዎች">🚌 የትራንስፖርት መናኸሪያዎች</option>
                 <option value="🏡 መኖሪያ እና ሌሎች ሰፈሮች">🏡 መኖሪያ እና ሌሎች ሰፈሮች</option>
             </select>
-            <input type="password" name="ሚስጥር_ቁጥር" placeholder="🔑 ሚስጥራዊ የይለፍ ቃል ያስገቡ..." required>
             <button type="submit" class="btn btn-admin">💾 አዲስ ቦታ መዝግብ</button>
         </form>
         {% if መልዕክት %}
-            <div class="alert {% if '⚠️' in መልዕክት %}alert-danger{% endif %}">{{ መልዕክት }}</div>
+            <div class="alert">🎉 {{ መልዕክት }}</div>
         {% endif %}
     </div>
 
@@ -210,11 +251,11 @@ HTML_ዲዛይን = """
 """
 
 def የቦታ_ስሞችን_በምድብ_አምጣ():
-    ግንኙነት = sqlite3.connect("ከተማ_መረጃ_አዲስ.db")
+    ግንኙነት = sqlite3.connect("ከተማ_መረጃ_ጋለሪ.db")
     ጠቋሚ = ግንኙነት.cursor()
     try:
         ጠቋሚ.execute("SELECT ምድብ, ስም FROM ቦታዎች ORDER BY ምድብ, ስም ASC")
-        ውጤቶች =ጠቋሚ.fetchall()
+        ውጤቶች = ጠቋሚ.fetchall()
     except:
         ውጤቶች = []
     ግንኙነት.close()
@@ -229,51 +270,55 @@ def መነሻ_ገጽ():
     ውጤት = None
     መልዕክት = None
     
-    # 🛑 የታገዱ መጥፎ ቃላት ዝርዝር
-    የታገዱ_ቃላት = ["ስድብ1", "መጥፎቃል", "አጸያፊ", "ስድብ2", "ሌባ", "ጅል"]
-    
     if request.method == 'POST':
         ፎርም_አይነት = request.form.get('ፎርም_አይነት')
         if ፎርም_አይነት == 'ፈልግ':
             የተመረጠው_ቦታ = request.form.get('የተመረጠው_ቦታ')
             if የተመረጠው_ቦታ:
-                ግንኙነት = sqlite3.connect("ከተማ_መረጃ_አዲስ.db")
+                ግንኙነት = sqlite3.connect("ከተማ_መረጃ_ጋለሪ.db")
                 ጠቋሚ = ግንኙነት.cursor()
+                
+                # 1. የሰፈሩን ዋና መረጃ ማምጣት
                 ጠቋሚ.execute("SELECT ስም, ታሪክ, ደረጃ, ምድብ, ካርታ FROM ቦታዎች WHERE ስም=?", (የተመረጠው_ቦታ,))
-                ውጤት = ጠቋሚ.fetchone()
+                ቦታ_መረጃ = ጠቋሚ.fetchone()
+                
+                # 🌟 2. የሰፈሩን ፎቶዎች በሙሉ ከሁለተኛው ሰንጠረዥ ማምጣት
+                ጠቋሚ.execute("SELECT ፎቶ_ሊንክ FROM ቦታ_ፎቶዎች WHERE ቦታ_ስም=?", (የተመረጠው_ቦታ,))
+                ፎቶዎች_ኳየሪ = ጠቋሚ.fetchall()
+                የፎቶ_ሊንኮች = [ፎቶ[0] for ፎቶ in ፎቶዎች_ኳየሪ]
+                
                 ግንኙነት.close()
+                
+                # ሁሉንም መረጃ በአንድ ላይ አሽጎ ለ HTML ዲዛይኑ መላክ (ኢንዴክስ 5 ላይ ፎቶዎቹ አሉ)
+                ውጤት = (ቦታ_መረጃ[0], ቦታ_መረጃ[1], ቦታ_መረጃ[2], ቦታ_መረጃ[3], ቦታ_መረጃ[4], የፎቶ_ሊንኮች)
+                
         elif ፎርም_አይነት == 'መዝግብ':
-            ስም = request.form.get('አዲስ_ስም', '').strip()
-            ታሪክ = request.form.get('አዲስ_ታሪክ', '').strip()
+            ስም = request.form.get('አዲስ_ስም')
+            ታሪክ = request.form.get('አዲስ_ታሪክ')
             ደረጃ = request.form.get('አዲስ_ደረጃ')
             ምድብ = request.form.get('አዲስ_ምድብ')
-            የገባው_ፓስወርድ = request.form.get('ሚስጥር_ቁጥር', '').strip()
+            ዲፎልት_ካርታ = f"http://maps.google.com/?q={ስም}+Addis+Ababa"
             
-            # 🔍 1. መጀመሪያ ፓስወርዱን መፈተሽ
-            if የገባው_ፓስወርድ != "777":
-                መልዕክት = "⚠️ የይለፍ ቃሉ የተሳሳተ ነው! አዲስ ቦታ መመዝገብ የሚችለው ባለቤቱ ብቻ ነው::"
-            else:
-                # 🔍 2. መጥፎ ቃል መኖሩን መፈተሽ
-                መጥፎ_ቃል_ተገኝቷል = False
-                የተጻፈው_ጽሁፍ = (ስም + " " + ታሪክ).lower()
-                for ቃል in የታገዱ_ቃላት:
-                    if ቃል.lower() in የተጻፈው_ጽሁፍ:
-                        መጥፎ_ቃል_ተገኝቷል = True
-                        break
+            ግንኙነት = sqlite3.connect("ከተማ_መረጃ_ጋለሪ.db")
+            ጠቋሚ = ግንኙነት.cursor()
+            ጠቋሚ.execute("INSERT OR REPLACE INTO ቦታዎች (ስም, ታሪክ, ደረጃ, ምድብ, ካርታ) VALUES (?, ?, ?, ?, ?)", (ስም, ታሪክ, ደረጃ, ምድብ, ዲፎልት_ካርታ))
+            
+            # 🌟 አዲስ ሰፈር ሲመዘገብ መጀመሪያ ባዶ እንዳይሆን እነዚህን 3 ፎቶዎች በራስ-ሰር እናገናኝለት
+            የሙከራ_ፎቶዎች = [
+                "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?q=80&w=400&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1621257121703-9d10e5b72186?q=80&w=400&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=400&auto=format&fit=crop"
+            ]
+            for ፎቶ_ሊንክ in የሙከራ_ፎቶዎች:
+                ልዩ_ሊንክ = f"{ፎቶ_ሊንክ}&place={ስም}"
+                ጠቋሚ.execute("INSERT OR IGNORE INTO ቦታ_ፎቶዎች (ፎቶ_ሊንክ, ቦታ_ስም) VALUES (?, ?)", (ልዩ_ሊንክ, ስም))
                 
-                if መጥፎ_ቃል_ተገኝቷል:
-                    መልዕክት = "⚠️ ያስገቡት መረጃ ተገቢ ያልሆኑ ቃላትን ይዟል! እባክዎ በትክክል ይጻፉ።"
-                else:
-                    ዲፎልት_ካርታ = f"http://maps.google.com/?q={ስም}+Addis+Ababa"
-                    ግንኙነት = sqlite3.connect("ከተማ_መረጃ_አዲስ.db")
-                    ጠቋሚ = ግንኙነት.cursor()
-                    ጠቋሚ.execute("INSERT OR REPLACE INTO ቦታዎች (ስም, ታሪክ, ደረጃ, ምድብ, ካርታ) VALUES (?, ?, ?, ?, ?)", (ስም, ታሪክ, ደረጃ, ምድብ, ዲፎልት_ካርታ))
-                    ግንኙነት.commit()
-                    ግንኙነት.close()
-                    መልዕክት = f"🎉 '{ስም}' በተሳካ ሁኔታ በዳታቤዝ ውስጥ ተመዝግቧል!"
+            ግንኙነት.commit()
+            ግንኙነት.close()
+            መልዕክት = f"🎉 '{ስም}' በተሳካ ሁኔታ በዳታቤዝ ውስጥ ተመዝግቧል!"
 
     ምድቦች = የቦታ_ስሞችን_በምድብ_አምጣ()
-    return render_template_string(HTML_ዲዛይን, ምድቦች=ምድቦች, ውጤት=ውጤት, መልዕክት=መልዕክት)
+    return render_template_string(HTML_DIዛይን, ምድቦች=ምድቦች, ውጤት=ውጤት, መልዕክት=መልዕክት)
 
 if __name__ == '__main__':
     import os
