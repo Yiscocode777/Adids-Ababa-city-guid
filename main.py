@@ -203,7 +203,7 @@ HTML_ዲዛይን = """
 
         <input type="text" id="መፈለጊያ_ሳጥን" oninput="ቦታ_ፈልግ()" placeholder="🔍 የሰፈር ስም እዚህ ይጻፉ...">
         <form method="POST" action="/">
-            <input type="hidden" name="форм_айнет" value="ፈልግ">
+            <input type="hidden" name="ፎርም_አይነት" value="ፈልግ">
             <select name="የተመረጠው_ቦታ" id="የቦታ_ዝርዝር">
                 <option value="" disabled selected>እባክዎ ቦታ ይምረጡ...</option>
                 {% for ምድብ, ስሞች in ምድቦች.items() %}
