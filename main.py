@@ -300,7 +300,7 @@ def መነሻ_ገጽ():
     መልዕክት = None
     
     if request.method == 'POST':
-        ፎርም_አይነት = request.form.get('форም_айнет')
+        ፎርም_አይነት = request.form.get('ፎርም_አይነት')
         if ፎርም_አይነት == 'ፈልግ':
             የተመረጠው_ቦታ = request.form.get('የተመረጠው_ቦታ')
             if የተመረጠው_ቦታ:
