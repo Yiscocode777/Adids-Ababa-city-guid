@@ -275,10 +275,23 @@ HTML_ዲዛይን = """
             }
         }
     </script>
-</body>
+    
+    <div class="container" style="border-top: 5px solid #00c6ff; margin-top: 20px;">
+        <div class="header-icon" style="font-size: 45px;">✉️</div>
+        <h2>አስተያየት ይላኩ</h2>
+        <p class="subtitle">ስለ ዌብሳይቱ ያለዎትን ሀሳብ ወይም ጥያቄ እዚህ ያስቀምጡ</p>
+        
+        <form action="https://formspree.io/f/mpqgarjo" method="POST">
+            <input type="text" name="ስም" placeholder="የእርስዎ ስም..." required>
+            <input type="email" name="_replyto" placeholder="የእርስዎ ኢሜይል (Email)..." required>
+            <textarea name="መልዕክት" placeholder="የእርስዎ አስተያየት ወይም ጥያቄ..." rows="4" required></textarea>
+            
+            <button type="submit" class="btn">✉️ አስተያየት ላክ</button>
+        </form>
+    </div>
+    </body>
 </html>
 """
-
 def የቦታ_ስሞችን_በምድብ_አምጣ():
     ግንኙነት = sqlite3.connect("ከተማ_መረጃ_ጋለሪ_አዲስ.db")
     ጠቋሚ = ግንኙነት.cursor()
