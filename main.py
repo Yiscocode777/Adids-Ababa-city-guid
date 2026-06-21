@@ -289,9 +289,27 @@ HTML_ዲዛይን = """
             <button type="submit" class="btn">✉️ አስተያየት ላክ</button>
         </form>
     </div>
+    
+    <div class="container" style="border-top: 5px solid #ff9900; margin-top: 20px; background: #fffcf5;">
+        <div class="header-icon" style="font-size: 45px;">☕</div>
+        <h2>ፈጣሪውን ይደግፉ (Support)</h2>
+        <p class="subtitle">ይህ ዌብሳይት ጠቃሚ ሆኖ ካገኙት፣ ለስራችን ማበረታቻ የቡና መግዣ መለገስ ይችላሉ።</p>
+        
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 15px; margin-top: 20px;">
+            <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 45%; min-width: 200px; text-align: center;">
+                <span style="font-size: 30px;">📱</span>
+                <h4 style="margin: 10px 0 5px 0; color: #111;">Telebirr</h4>
+                <p style="margin: 0; font-weight: bold; color: #ff9900;">0919986909</p> <small style="color: #666;">(ይስሀቅ ...)</small> </div>
+
+            <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 45%; min-width: 200px; text-align: center;">
+                <span style="font-size: 30px;">🏦</span>
+                <h4 style="margin: 10px 0 5px 0; color: #111;">የኢትዮጵያ ንግድ ባንክ (CBE)</h4>
+                <p style="margin: 0; font-weight: bold; color: #0066cc;">1000299877675</p> <small style="color: #666;">(ይስሐቅ ታደለ ቡሊ ...)</small> </div>
+        </div>
+    </div>
     </body>
-</html>
-"""
+</html> 
+
 def የቦታ_ስሞችን_በምድብ_አምጣ():
     ግንኙነት = sqlite3.connect("ከተማ_መረጃ_ጋለሪ_አዲስ.db")
     ጠቋሚ = ግንኙነት.cursor()
