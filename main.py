@@ -308,8 +308,34 @@ HTML_ዲዛይን = """
         </div>
     </div>
     </body>
-</html> 
 
+    <div class="container" style="border-top: 5px solid #002244; margin-top: 20px; text-align: center;">
+        <div class="header-icon" style="font-size: 45px;">📢</div>
+        <h2>ለወዳጅዎ ያጋሩ (Share)</h2>
+        <p class="subtitle">ይህንን ጠቃሚ የከተማ መመሪያ ዌብሳይት ለጓደኞችዎ ያጋሩ</p>
+        
+        <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap;">
+            <a href="https://t.me/share/url?url=https://adids-ababa-city-guid.onrender.com/&text=ይህንን ድንቅ የአዲስ አበባ ከተማ ሰፈሮች መመሪያ ዌብሳይት ይጎብኙ!" 
+               target="_blank" 
+               style="background: #26A5E4; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                ✈️ በቴሌግራም ያጋሩ
+            </a>
+
+            <a href="https://api.whatsapp.com/send?text=ይህንን ድንቅ የአዲስ አበባ ከተማ ሰፈሮች መመሪያ ዌብሳይት ይጎብኙ! 👉 https://adids-ababa-city-guid.onrender.com/" 
+               target="_blank" 
+               style="background: #25D366; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                💬 በዋትስአፕ ያጋሩ
+            </a>
+
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://adids-ababa-city-guid.onrender.com/" 
+               target="_blank" 
+               style="background: #1877F2; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                👥 በፌስቡክ ያጋሩ
+            </a>
+        </div>
+    </div>
+</html> 
+"""
 def የቦታ_ስሞችን_በምድብ_አምጣ():
     ግንኙነት = sqlite3.connect("ከተማ_መረጃ_ጋለሪ_አዲስ.db")
     ጠቋሚ = ግንኙነት.cursor()
