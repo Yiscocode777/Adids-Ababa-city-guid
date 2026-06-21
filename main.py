@@ -190,8 +190,55 @@ HTML_ዲዛይን = """
         optgroup { font-weight: bold; color: #1e3c72; background-color: #f0f4f8;}
         option { color: #333; background-color: #fff;}
     </style>
+            /* 🌓 የጨለማ ሁነታ (Dark Mode) ስታይሎች */
+        body.dark-mode {
+            background: #121212;
+            color: #e0e0e0;
+        }
+        body.dark-mode .container {
+            background: #1e1e1e;
+            color: #e0e0e0;
+            box-shadow: 0 4px 15px rgba(27, 254, 212, 0.2);
+        }
+        body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
+            background: #2d2d2d;
+            color: #ffffff;
+            border: 1px solid #444;
+        }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+            color: #ffffff;
+        }
+        body.dark-mode .subtitle {
+            color: #aaa;
+        }
+        body.dark-mode small {
+            color: #bbb !important;
+        }
+        body.dark-mode div[style*="background: white"] {
+            background: #2d2d2d !important;
+        }
+        .dark-toggle-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        body.dark-mode .dark-toggle-btn {
+            background: #f0f0f0;
+            color: #333;
+        }
 </head>
 <body>
+    <button class="dark-toggle-btn" onclick="የሁነታ_መቀያየሪያ()">🌓 ጨለማ/ብርሃን</button>
     <div class="container">
         <div class="header-icon">🌆</div>
         <h2>አዲስ አበባን ይወቁ</h2>
@@ -275,6 +322,24 @@ HTML_ዲዛይን = """
             }
         }
     </script>
+            // 🌓 የጨለማ ሁነታን ኦን/ኦፍ ማድረጊያ
+        function የሁነታ_መቀያየሪያ() {
+            document.body.classList.toggle("dark-mode");
+            
+            // ተጠቃሚው ገጹን ሪፍሬሽ ቢያደርገው እንኳ የመረጠው እንዳይጠፋ በስልኩ ሜሞሪ ላይ ሴቭ ያደርገዋል
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+            } else {
+                localStorage.setItem("theme", "light");
+            }
+        }
+
+        // ዌብሳይቱ ሲከፈት ቀድሞ የተመረጠውን ሁነታ ቼክ ማድረጊያ
+        window.onload = function() {
+            if (localStorage.getItem("theme") === "dark") {
+                document.body.classList.add("dark-mode");
+            }
+        }
     
     <div class="container" style="border-top: 5px solid #00c6ff; margin-top: 20px;">
         <div class="header-icon" style="font-size: 45px;">✉️</div>
