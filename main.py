@@ -95,7 +95,7 @@ def ዳታቤዙን_አዘምን():
     ]
     
     for ስም, ታሪክ, ደረጃ, ምድብ in ዋና_ቦታዎች:
-        ዲፎልት_ካርታ = f"http://maps.google.com/?q={ስም}+Addis+Ababa"
+        ዲፎልት_ካርታ = f"https://maps.google.com/maps?q={ስም}+Addis+Ababa&output=embed"
         ጠቋሚ.execute("INSERT OR IGNORE INTO ቦታዎች (ስም, ታሪክ, ደረጃ, ምድብ,探ካርታ) VALUES (?, ?, ?, ?, ?)", 
                        (ስም, ታሪክ, ደረጃ, ምድብ, ዲፎልት_ካርታ))
         
@@ -277,8 +277,17 @@ HTML_ዲዛይን = """
             <p><strong>ታሪክና መረጃ፦</strong> {{ ውጤት[1] }}</p>
             <p><strong>የደረጃ አሰጣጥ፦</strong> ⭐ {{ ውጤት[2] }}</p>
             <p><strong>የተመደበበት ምድብ፦</strong> {{ ውጤት[3] }}</p>
-            <p>🗺️ <a href="{{ ውጤት[4] }}" target="_blank" style="color: #0072ff; font-weight: bold; text-decoration: none;">የጉግል ካርታ መገኛ (Google Maps)</a></p>
-            
+            <p><strong>🗺️ የሰፈሩ ቀጥታ ካርታ (Google Maps)፦</strong></p>
+<div style="width: 100%; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 15px;">
+    <iframe 
+        width="100%" 
+        height="300" 
+        style="border:0;" 
+        loading="lazy" 
+        allowfullscreen 
+        src="https://maps.google.com/maps?q={{ ውጤት[0] | urlencode }}+Addis+Ababa&t=&z=14&ie=UTF8&iwloc=&output=embed">
+    </iframe>
+</div>
             <h4>📸 የቦታው ፎቶዎች፦</h4>
             <div class="gallery">
                 {% for ፎቶ in ውጤት[5] %}
