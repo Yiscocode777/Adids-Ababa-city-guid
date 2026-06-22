@@ -215,8 +215,8 @@ HTML_ዲዛይን = """
         <h2>📞 ሳፖርት እና እርዳታ</h2>
         <div class="support-box">
             📌 <strong>ችግር አጋጠመዎት?</strong> ድረ-ገጹን ሲጠቀሙ ማንኛውም አይነት መቆራረጥ ወይም የካርታ አለመታየት ችግር ካጋጠመዎት በደስታ እንረዳዎታለን።<br>
-            📧 <strong>ኢሜይል፦</strong> support@addis-guide.com<br>
-            📱 <strong>ስልክ፦</strong> +251 911 00 00 00 (የስራ ሰዓት)
+            📧 <strong>ኢሜይል፦</strong> yishaktadele169@gmail.com<br>
+            📱 <strong>ስልክ፦</strong> +251 919986909 (የስራ ሰዓት)
         </div>
 
         <h2>💬 የእርስዎ አስተያየት</h2>
