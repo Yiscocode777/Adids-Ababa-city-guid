@@ -104,7 +104,7 @@ def ዳታቤዙን_አዘምን():
         else: ፎቶ_ናሙና = "[https://images.unsplash.com/photo-1568605114967-8130f3a36994](https://images.unsplash.com/photo-1568605114967-8130f3a36994)"
         
         for i in range(3):
-            ልዩ_ሊንክ = f"{ፎቶ_ናሙና}?q=80&w=400&auto=format&fit=crop&place={የተቀየረ_ስм}&num={i}"
+            ልዩ_ሊንክ = f"{ፎቶ_ናሙና}?q=80&w=400&auto=format&fit=crop&place={የተቀየረ_ስም}&num={i}"
             ጠቋሚ.execute("INSERT OR IGNORE INTO ቦታ_ፎቶዎች (ፎቶ_ሊንክ, ቦታ_ስም) VALUES (?, ?)", (ልዩ_ሊንክ, ስም))
             
     ግንኙነት.commit()
@@ -293,7 +293,7 @@ def መነሻ_ገጽ():
                 መልዕክት = f"🎉 '{ስም}' በተሳካ ሁኔታ ተመዝግቧል!"
 
     ምድቦች = የቦታ_ስሞችን_በምድብ_አምጣ()
-    return render_template_string(HTML_디ዛይን, ምድቦች=ምድቦች, ውጤት=ውጤት, መልዕክት=መልዕክት)
+    return render_template_string(HTML_ዲዛይን, ምድቦች=ምድቦች, ውጤት=ውጤት, መልዕክት=መልዕክት)
 
 if __name__ == '__main__':
     ዳታቤዙን_አዘምን()
