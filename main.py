@@ -4,12 +4,11 @@ import os
 
 አፕ = Flask(__name__)
 
-# ፍጹም ንፁህ እና አዲስ የዳታቤዝ ፋይል ስም
-DATABASE_NAME = "ከተማ_መረጃ_ጋለሪ_ፋይናል.db"
+# ፍጹም አዲስ የዳታቤዝ ፋይል ስም (ስሙን ቀይረነዋል መረጃው ግዴታ እንዲጫን)
+DATABASE_NAME = "ከተማ_መረጃ_ጋለሪ_ሪል.db"
 
 def ዳታቤዙን_አዘምን():
     ግንኙነት = sqlite3.connect(DATABASE_NAME)
-    # የውጭ ቁልፍ (Foreign Key) እንዲሰራ ማግበር
     ግንኙነት.execute("PRAGMA foreign_keys = ON")
     ጠቋሚ = ግንኙነት.cursor()
     
@@ -59,13 +58,13 @@ def ዳታቤዙን_አዘምን():
         ("መገናኛ", "የከተማዋ ትልቁ የትራፊክና የንግድ መገናኛ፣ የገበያ አዳራሾችና የቢሮ ህንፃዎች መዓት የሞሉበት ሰፈር::", "5 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ገርጂ", "ሰፊ የመኖሪያ መንደሮች ያሉትና ፈጣን የንግድና የህንፃ ግንባታ የታየበት ታዋቂ አካባቢ::", "4 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ሲኤምሲ (CMC)", "ከፍተኛ ገቢ ያላቸው ነዋሪዎች የሚኖሩበት ዘመናዊ ቪላዎችና የንግድ ሱቆች ያሉበት ቪአይፒ ሰፈር::", "5 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
-        ("ሳሪስ", "በፋብሪካዎችና በጅምላ ንግድ መጋዘኖች የምትታወቅ፣ ወደ ደቡብ መውጫ ያለች የንግድ ቀጠና::", "4 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
+        ("সািরስ", "በፋብሪካዎችና በጅምላ ንግድ መጋዘኖች የምትታወቅ፣ ወደ ደቡብ መውጫ ያለች የንግድ ቀጠና::", "4 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ቃሊቲ", "የትላልቅ ኢንዱስትሪዎች፣ የጉምሩክ መጋዘኖችና የጭነት መኪናዎች ማረፊያ የሆነች የንግድ ከተማ::", "4 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ጎተራ", "በትላልቅ ዘመናዊ ኮንዶሚኒየሞችና በኢንተርክንቲኔንታል የልውውጥ ድልድይ የምትታወቅ የንግድ መገናኛ::", "4 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ላፍቶ", "ለኢንዱስትሪና ለመኖሪያ ምቹ የሆነች፣ የገበያ ማዕከላትና መዝናኛዎች ያሏት ደቡብ ምዕራብ ሰፈር::", "4 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ሳር ቤት", "የአፍሪካ አንድነት ድርጅት (AU) አቅራቢያ የምትገኝ፣ የፈረስ ማጋለጫ ሜዳና የባንኮች መጋዘን ያለባት ሰፈር::", "4 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ሜክሲኮ", "የንግድ ማዕከላት፣ የፌደራል ፖሊስ ዋና መሥሪያ ቤትና ትላልቅ ኮሌጆች የሚገኙበት የንግድ እምብርት::", "5 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
-        ("ላጋር", "የምድር ባቡር መናኸሪያ የነበረች ታሪካዊ ጣቢያ Iron፣ አሁን ትልቅ የትራንስፖርትና የህንፃ ልማት ቀጠና::", "5 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
+        ("ላጋር", "የምድር ባቡር መናኸሪያ የነበረች ታሪካዊ ጣቢያ፣ አሁን ትልቅ የትራንስፖርትና የህንፃ ልማት ቀጠና::", "5 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
         ("ቄራ", "ቀጥታ የትራንስፖርት መገናኛ እና የከተማዋ ትልቁ የስጋ አቅርቦት (የቄራዎች) መገኛ ሰፈር::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
         ("ቶታል", "በተለያዩ አቅጣጫዎች የሚሄዱ የህዝብ ማመላለሻዎች መነሻ የሆነች ስልታዊ የትራንስፖርት ጣቢያ::", "3 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
         ("ዊንጌት", "ወደ ሰሜን አቅጣጫ (ጎጃም/ጎንደር) ለሚሄዱ አውቶቡሶችና መኪናዎች መውጫ የሆነች ሰሜናዊ በር::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
@@ -79,7 +78,7 @@ def ዳታቤዙን_አዘምን():
         ("ኮተቤ", "የአዲስ አበባ ዩኒቨርሲቲ ኮተቤ ካምፓስ የሚገኝበት፣ ሰፊ የመኖሪያና የትምህርት ቀጠና ሰፈር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ካራሎ", "በኮተቤ አቅራቢያ የሚገኝ፣ ፈጣን የመኖሪያ ቤቶች ግንባታ እየተካሄደበት ያለ ሰፈር::", "3 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ሲቪል ሰርቪስ", "የኢፌድሪ ሲቪል ሰርቪስ ዩኒቨርሲቲ የሚገኝበትና ለአያት መንገድ ቅርብ የሆነ ሰፈር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
-        ("ሀያ ራት (24)", "በመገናኛና በኮተቤ መካከል የሚገኝ፣ ምቹ መኖሪያዎችና ትናንሽ ሱቆች ያሉት ሰፈር::", "3 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
+        ("ሀያ አራት (24)", "በመገናኛና በኮተቤ መካከል የሚገኝ፣ ምቹ መኖሪያዎችና ትናንሽ ሱቆች ያሉት ሰፈር::", "3 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("አባዶ", "በከተማዋ ዳርቻ የሚገኝ ታላቅ የኮንዶሚኒየም ከተማ፣ በሺዎች የሚቆጠሩ ነዋሪዎች መኖሪያ::", "3 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("የካ አባዶ", "የየካ ክፍለ ከተማ አካል የሆነ፣ አዲስ የተቆረቆሩ ሰፊ የመኖሪያ መንደሮች መገኛ::", "3 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ካራንቡላ", "ወደ ሰንዳፋ መውጫ አካባቢ የሚገኝ፣ ለፀጥታና ንፁህ አየር ፈላጊዎች ተመራጭ መኖሪያ ሰፈር::", "3 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
@@ -93,13 +92,12 @@ def ዳታቤዙን_አዘምን():
         ("ጀሞ 2", "ከጀሞ 1 ቀጥሎ የለማ፣ ሰፊ አፓርታማዎችና ምቹ መኖሪያዎች ያሉት አዲስ ሰፈር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ጀሞ 3", "የጀሞ መንደሮች ማራዘሚያ፣ አዲስ ለተሰደዱ ነዋሪዎች ሰፊ የመኖሪያ እድል የፈጠረ አካባቢ::", "3 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ለቡ", "በዘመናዊ ዲዛይን የተገነቡ ቪላዎችና አፓርታማዎች ያሉት፣ ለኑሮ እጅግ ተመራጭ የሆነ ደቡባዊ ሰፈር::", "5 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
-        ("መካኒሳ", "የውชาติ ሀገር ዜጎችና ትላልቅ ትምህርት ቤቶች የሚገኙበት፣ ለኑሮ ምቹና ሰላማዊ ሰፈር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
+        ("መካኒሳ", "የውጭ ሀገር ዜጎችና ትላልቅ ትምህርት ቤቶች የሚገኙበት፣ ለኑሮ ምቹና ሰላማዊ ሰፈር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ሳር ቤት መኖሪያ", "ከአፍሪካ አንድነት ጀርባ ያሉ ፀጥተኛና አረንጓዴ የሆኑ የመኖሪያ ቪላዎች መገኛ ሰፈር::", "5 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች")
     ]
     
     for ስም, ታሪክ, ደረጃ, ምድብ in ዋና_ቦታዎች:
         ዲፎልት_ካርታ = f"https://maps.google.com/maps?q={ስም}+Addis+Ababa&output=embed"
-        # ⚠️ እዚህ ጋር 'ካርታ' የሚለው ቃል በትክክል ተስተካክሏል
         ጠቋሚ.execute("INSERT OR IGNORE INTO ቦታዎች (ስም, ታሪክ, ደረጃ, ምድብ, ካርታ) VALUES (?, ?, ?, ?, ?)", 
                        (ስም, ታሪክ, ደረጃ, ምድብ, ዲፎልት_ካርታ))
         
@@ -110,7 +108,6 @@ def ዳታቤዙን_አዘምን():
         
         for i in range(3):
             ልዩ_ሊንክ = f"{ፎቶ_ናሙና}?q=80&w=400&auto=format&fit=crop&place={ስም}&num={i}"
-            # ⚠️ እዚህ ጋር 'ስም' የሚለው ቃል በትክክል ተስተካክሏል
             ጠቋሚ.execute("INSERT OR IGNORE INTO ቦታ_ፎቶዎች (ፎቶ_ሊንክ, ቦታ_ስም) VALUES (?, ?)", (ልዩ_ሊንክ, ስም))
             
     ግንኙነት.commit()
@@ -124,106 +121,23 @@ HTML_ዲዛይን = """
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>አዲስ አበባ ከተማ ጋለሪ መመሪያ</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            transition: 0.3s;
-        }
-        .container {
-            max-width: 650px;
-            background: white;
-            margin: 30px auto;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: 0.3s;
-        }
-        h1 { text-align: center; color: #111; margin-bottom: 5px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 650px; background: white; margin: 30px auto; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        h1 { text-align: center; color: #111; }
         h2 { color: #2c3e50; border-bottom: 2px solid #eaeaea; padding-bottom: 8px; }
-        .subtitle { text-align: center; color: #666; margin-top: 0; margin-bottom: 25px; }
+        .subtitle { text-align: center; color: #666; }
         label { font-weight: bold; display: block; margin-top: 15px; margin-bottom: 5px; }
-        select, input, textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-        .btn {
-            background: linear-gradient(to right, #0072ff, #00c6ff);
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 18px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
-        .result-box {
-            background: #f9f9f9;
-            border-left: 5px solid #0072ff;
-            padding: 20px;
-            margin-top: 25px;
-            border-radius: 8px;
-        }
-        .gallery {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-        .gallery img {
-            width: 31%;
-            min-width: 120px;
-            height: 110px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .alert {
-            padding: 15px;
-            background-color: #d4edda;
-            color: #155724;
-            border-radius: 8px;
-            margin-top: 15px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .alert-danger { background-color: #f8d7da; color: #721c24; }
-        .header-icon { text-align: center; font-size: 50px; margin-bottom: 10px; }
-        
-        /* 🌓 የጨለማ ሁነታ (Dark Mode) */
+        select, input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        .btn { background: linear-gradient(to right, #0072ff, #00c6ff); color: white; padding: 14px; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-size: 18px; font-weight: bold; }
+        .result-box { background: #f9f9f9; border-left: 5px solid #0072ff; padding: 20px; margin-top: 25px; border-radius: 8px; }
+        .gallery { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+        .gallery img { width: 31%; min-width: 120px; height: 110px; object-fit: cover; border-radius: 8px; }
+        .alert { padding: 15px; background-color: #d4edda; color: #155724; border-radius: 8px; margin-top: 15px; text-align: center; }
+        .header-icon { text-align: center; font-size: 50px; }
         body.dark-mode { background: #121212; color: #e0e0e0; }
-        body.dark-mode .container { background: #1e1e1e; color: #e0e0e0; box-shadow: 0 4px 15px rgba(27, 254, 212, 0.1); }
-        body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background: #2d2d2d; color: #ffffff; border: 1px solid #444; }
-        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 { color: #ffffff; }
-        body.dark-mode .subtitle { color: #aaa; }
-        body.dark-mode .result-box { background: #252525; border-left-color: #00c6ff; }
-        
-        .dark-toggle-btn {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background: #333;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: 0.3s;
-        }
-        body.dark-mode .dark-toggle-btn { background: #f0f0f0; color: #333; }
+        body.dark-mode .container { background: #1e1e1e; color: #e0e0e0; }
+        body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background: #2d2d2d; color: #ffffff; }
+        .dark-toggle-btn { position: fixed; top: 15px; right: 15px; background: #333; color: white; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; z-index: 1000; }
     </style>
 </head>
 <body>
@@ -276,16 +190,13 @@ HTML_ዲዛይን = """
     </div>
 
     <div class="container" style="border-top: 5px solid #0072ff;">
-        <div class="header-icon">➕</div>
-        <h2>አዲስ ቦታ መመዝገቢያ</h2>
-        <p class="subtitle">የጎደሉ ሰፈሮችን ታሪክ እዚህ ይጨምሩ</p>
-        
+        <h2>➕ አዲስ ቦታ መመዝገቢያ</h2>
         <form method="POST" action="/">
             <input type="hidden" name="ፎርም_አይነት" value="መዝግብ">
             <label>የሰፈሩ ስም፦</label>
-            <input type="text" name="አዲስ_ስም" placeholder="ምሳሌ፡ ቦሌ" required>
+            <input type="text" name="አዲስ_ስም" required>
             <label>ስለ ሰፈሩ ታሪክ፦</label>
-            <textarea name="አዲስ_ታሪክ" placeholder="ታሪኩን እዚህ ይጻፉ..." rows="3" required></textarea>
+            <textarea name="አዲስ_ታሪክ" rows="3" required></textarea>
             <label>ደረጃ፦</label>
             <select name="አዲስ_ደረጃ">
                 <option value="5 ኮከብ">⭐⭐⭐⭐⭐</option>
@@ -299,38 +210,12 @@ HTML_ዲዛይን = """
                 <option value="🏡 መኖሪያ እና ሌሎች ሰፈሮች">🏡 መኖሪያ እና ሌሎች ሰፈሮች</option>
             </select>
             <label>ሚስጥር ቁጥር፦</label>
-            <input type="password" name="ሚስጥር_ቁጥር" placeholder="🔑 ያስገቡ..." required>
+            <input type="password" name="ሚስጥር_ቁጥር" required>
             <button type="submit" class="btn" style="background:#0072ff;">💾 አዲስ ቦታ መዝግብ</button>
         </form>
         {% if መልዕክት %}
-            <div class="alert {% if '⚠️' in መልዕክት %}alert-danger{% endif %}">{{ መልዕክት }}</div>
+            <div class="alert">{{ መልዕክት }}</div>
         {% endif %}
-    </div>
-
-    <div class="container" style="border-top: 5px solid #00c6ff; margin-top: 20px;">
-        <h2>✉️ አስተያየት ይላኩ</h2>
-        <form action="https://formspree.io/f/mpqgarjo" method="POST">
-            <input type="text" name="ስም" placeholder="የእርስዎ ስም..." required>
-            <input type="email" name="_replyto" placeholder="ኢሜይል..." required>
-            <textarea name="መልዕክት" placeholder="አስተያየት..." rows="4" required></textarea>
-            <button type="submit" class="btn">✉️ አስተያየት ላክ</button>
-        </form>
-    </div>
-
-    <div class="container" style="border-top: 5px solid #ff9900; background: #fffcf5;">
-        <h2>☕ ፈጣሪውን ይደግፉ</h2>
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 15px;">
-            <div>📱 <strong>Telebirr:</strong> 0919986909 <br><small>(ይስሀቅ ታደለ)</small></div>
-            <div>🏦 <strong>CBE:</strong> 1000299877675 <br><small>(ይስሐቅ ታደለ ቡሊ)</small></div>
-        </div>
-    </div>
-
-    <div class="container" style="text-align: center;">
-        <h2>📢 ለወዳጅዎ ያጋሩ</h2>
-        <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-            <a href="https://t.me/share/url?url=https://adids-ababa-city-guid.onrender.com/" target="_blank" style="background: #26A5E4; color: white; padding: 10px 20px; border-radius: 20px; text-decoration: none;">Telegram</a>
-            <a href="https://api.whatsapp.com/send?text=https://adids-ababa-city-guid.onrender.com/" target="_blank" style="background: #25D366; color: white; padding: 10px 20px; border-radius: 20px; text-decoration: none;">WhatsApp</a>
-        </div>
     </div>
 
     <script>
@@ -345,11 +230,7 @@ HTML_ዲዛይን = """
         }
         function የሁነታ_መቀያየሪያ() {
             document.body.classList.toggle("dark-mode");
-            localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
         }
-        window.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem("theme") === "dark") document.body.classList.add("dark-mode");
-        });
     </script>
 </body>
 </html>
@@ -360,7 +241,7 @@ def የቦታ_ስሞችን_በምድብ_አምጣ():
     ጠቋሚ = ግንኙነት.cursor()
     try:
         ጠቋሚ.execute("SELECT ምድብ, ስም FROM ቦታዎች ORDER BY ምድብ, ስም ASC")
-        ውጤቶች =ጠቋሚ.fetchall()
+        ውጤቶች = ጠቋሚ.fetchall()
     except:
         ውጤቶች = []
     ግንኙነት.close()
@@ -414,18 +295,11 @@ def መነሻ_ገጽ():
                 መልዕክት = f"🎉 '{ስም}' በተሳካ ሁኔታ ተመዝግቧል!"
 
     ምድቦች = የቦታ_ስሞችን_በምድብ_አምጣ()
-    return render_template_string(HTML_ዲዛይን, ምድቦች=ምድቦች, ውጤት=ውጤት, መልዕክት=መልዕክት)
+    return render_template_string(HTML_DIዛይን=HTML_ዲዛይን, ምድቦች=ምድቦች, ውጤት=ውጤት, መልዕክት=መልዕክት)
 
 if __name__ == '__main__':
-    # መጀመሪያ ሲከፈት ሁልጊዜ አዲሱን ዳታቤዝ ይፈጥራል
-    ግንኙነት = sqlite3.connect(DATABASE_NAME)
-    ጠቋሚ = ግንኙነት.cursor()
-    ጠቋሚ.execute("SELECT count(*) FROM sqlite_master WHERE type='table' AND name='ቦታዎች'")
-    አለ = ጠቋሚ.fetchone()[0]
-    ግንኙነት.close()
-    
-    if ንቁ_ሁኔታ := (አለ == 0):
-        ዳታቤዙን_አዘምን()
+    # 💥 ሰርቨሩ ሲነሳ ያለምንም ቅድመ ሁኔታ ዳታቤዙን ሁልጊዜ ቀጥታ ይጭናል!
+    ዳታቤዙን_አዘምን()
         
     ፖርት = int(os.environ.get("PORT", 5000))
     አፕ.run(host='0.0.0.0', port=ፖርት)
