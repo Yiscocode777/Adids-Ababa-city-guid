@@ -22,6 +22,16 @@ def ዳታቤዙን_አዘምን():
         )
     """)
     
+    # ለአስተያየት መቀበያ የሚሆን አዲስ ሰንጠረዥ
+    ጠቋሚ.execute("""
+        CREATE TABLE IF NOT EXISTS አስተያየቶች (
+            መታወቂያ INTEGER PRIMARY KEY AUTOINCREMENT,
+            ስም TEXT,
+            መልዕክት TEXT,
+            ቀን DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    
     ጠቋሚ.execute("""
         CREATE TABLE IF NOT EXISTS ቦታ_ፎቶዎች (
             ፎቶ_ሊንክ TEXT PRIMARY KEY,
@@ -38,7 +48,7 @@ def ዳታቤዙን_አዘምን():
         ("ስድስት ኪሎ", "የሰማዕታት ሃውልት፣ የቅድስት ሥላሴ ካቴድራል እና ብሔራዊ ሙዚየም የሚገኙበት የታሪክ ማዕከል::", "5 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
         ("አምስት ኪሎ", "ከአራት ኪሎ ወደ ስድስት ኪሎ በሚወስደው መንገድ ላይ የሚገኝ ታሪካዊ የመስቀለኛ መንገድ ሰፈር::", "3 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
         ("ጃንሜዳ", "የጥምቀት በዓል በታላቅ ድምቀት የሚከበርበትና የስፖርት ማዘውተሪያ የሆነው ሰፊው የሜዳ ስፍራ::", "4 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
-        ("ምንሊክ", "ዳግማዊ ምኒልክ ሆስፒታልና ጥንታዊ ታሪካዊ ሰፈሮች የሚገኙበት ታዋቂ አካባቢ::", "4 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
+        ("ምንሊክ", "ዳግማዊ ምኒልክ ሆስፒታልና ጥንታዊ ታሪካዊ ሰፈሮች የሚገኙበት አካባቢ::", "4 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
         ("ፈረንሳይ ሌጋሲዮን", "የመጀመሪያው የፈረንሳይ ኤምባሲ ያረፈበትና ወደ እንጦጦ ተራራ መውጫ የሚገኝ አረንጓዴ ሰፈር::", "4 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
         ("እንጦጦ", "አዲስ አበባ ከመቆርቆሯ በፊት የዳግማዊ ምኒልክ መቀመጫ የነበረች፣ አሁን ታላቅ የፓርክና የመዝናኛ ስፍራ::", "5 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
         ("ሽሮ ሜዳ", "በባህላዊ አልባሳት ሽያጭና በሽመና ጥበብ የምትታወቅ፣ በእንጦጦ ግርጌ የምትገኝ ደማቅ ሰፈር::", "4 ኮከብ", "🏛 ታሪካዊ እና የመዝናኛ ስፍራዎች"),
@@ -63,12 +73,12 @@ def ዳታቤዙን_አዘምን():
         ("ሳር ቤት", "የአፍሪካ አንድነት ድርጅት (AU) አቅራቢያ የምትገኝ፣ የፈረስ ማጋለጫ ሜዳና የባንኮች መጋዘን ያለባት ሰፈር::", "4 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ሜክሲኮ", "የንግድ ማዕከላት፣ የፌደራል ፖሊስ ዋና መሥሪያ ቤትና ትላልቅ ኮሌጆች የሚገኙበት የንግድ እምብርት::", "5 ኮከብ", "🛒 የንግድ ማዕከላት እና ገበያ"),
         ("ላጋር", "የምድር ባቡር መናኸሪያ የነበረች ታሪካዊ ጣቢያ፣ አሁን ትልቅ የትራንስፖርትና የህንፃ ልማት ቀጠና::", "5 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
-        ("ቄራ", "ቀጥታ የትራንስፖርት መገናኛ እና የከተማዋ ትልቁ የስጋ አቅርቦት (የቄራዎች) መገኛ ሰፈር::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
+        ("ቄራ", "ቀጥታ የትራንስፖርት መገናኛ እና የከተማዋ ትልቁ የስጋ አቅርቦት መገኛ ሰፈር::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
         ("ቶታል", "በተለያዩ አቅጣጫዎች የሚሄዱ የህዝብ ማመላለሻዎች መነሻ የሆነች ስልታዊ የትራንስፖርት ጣቢያ::", "3 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
-        ("ዊንጌት", "ወደ ሰሜን አቅጣጫ (ጎጃም/ጎንደር) ለሚሄዱ አውቶቡሶችና መኪናዎች መውጫ የሆነች ሰሜናዊ በር::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
+        ("ዊንጌት", "ወደ ሰሜን አቅጣጫ ለሚሄዱ አውቶቡሶችና መኪናዎች መውጫ የሆነች ሰሜናዊ በር::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
         ("አውቶቡስ ተራ", "ከአዲስ አበባ ወደ ተለያዩ የሀገሪቱ ክፍሎች ለሚጓዙ የረጅም ርቀት አውቶቡሶች ዋና መናኸሪያ ጣቢያ::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
-        ("ቃሊቲ መናኸሪያ", "ወደ ምስራቅና ደቡብ የሀገሪቱ ክፍሎች ለሚሄዶ አውቶቡሶች የተዘጋጀ ዘመናዊ መናኸሪያ ጣቢያ::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
-        ("ላምበረት", "ወደ ሰሜን ምስራቅ (ደብረ ብርሃን/ደሴ) ለሚጓዙ የህዝብ ማመላለሻዎች የተመደበች ደማቅ መናኸሪያ::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
+        ("ቃሊቲ መናኸሪያ", "ወደ ምስራቅና ደቡብ የሀገሪቱ ክፍሎች ለሚሄዱ አውቶቡሶች የተዘጋጀ መናኸሪያ ጣቢያ::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
+        ("ላምበረት", "ወደ ሰሜን ምስራቅ ለሚጓዙ የህዝብ ማመላለሻዎች የተመደበች ደማቅ መናኸሪያ::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
         ("አስኮ", "ወደ አምቦና ምዕራብ ኢትዮጵያ ለሚደረጉ ጉዞዎች መነሻ የሆነች ምዕራባዊ የትራንስፖርት በር::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
         ("አያት ባቡር ጣቢያ", "የአዲስ አበባ ቀላል ባቡር ማጠናቀቂያና ለሲኤምሲ/አያት ነዋሪዎች ዋና የትራንስፖርት መስመር::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
         ("ቃሊቲ ባቡር ጣቢያ", "የቀላል ባቡር ደቡባዊ ማቆሚያና የጥገና ማዕከል፣ ለቃሊቲና ሳሪስ ህዝብ ታላቅ የትራንስፖርት ምንጭ::", "4 ኮከብ", "🚌 የትራንስፖርት መናኸሪያዎች"),
@@ -89,7 +99,7 @@ def ዳታቤዙን_አዘምን():
         ("ጀሞ 1", "በትላልቅ የኮንዶሚኒየም ህንፃዎችና በደማቅ የካፌና ሱቆች ንግድ የሚታወቅ የመኖሪያ መንደር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ጀሞ 2", "ከጀሞ 1 ቀጥሎ የለማ፣ ሰፊ አፓርታማዎችና ምቹ መኖሪያዎች ያሉት አዲስ ሰፈር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ጀሞ 3", "የጀሞ መንደሮች ማራዘሚያ፣ አዲስ ለተሰደዱ ነዋሪዎች ሰፊ የመኖሪያ እድል የፈጠረ አካባቢ::", "3 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
-        ("ለቡ", "በዘመናዊ ዲዛይን የተገነቡ ቪላዎችና አፓርታማዎች ያሉት፣ ለኑሮ እጅግ ተመራጭ የሆነ ደቡባዊ ሰፈር::", "5 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
+        ("ለቡ", "በዘመናዊ ዲዛይን የተገነቡ ቪላዎችና አፓርታማዎች ያሉት面向 ለኑሮ እጅግ ተመራጭ የሆነ ደቡባዊ ሰፈር::", "5 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("መካኒሳ", "የውጭ ሀገር ዜጎችና ትላልቅ ትምህርት ቤቶች የሚገኙበት፣ ለኑሮ ምቹና ሰላማዊ ሰፈር::", "4 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች"),
         ("ሳር ቤት መኖሪያ", "ከአፍሪካ አንድነት ጀርባ ያሉ ፀጥተኛና አረንጓዴ የሆኑ የመኖሪያ ቪላዎች መገኛ ሰፈር::", "5 ኮከብ", "🏡 መኖሪያ እና ሌሎች ሰፈሮች")
     ]
@@ -125,7 +135,7 @@ HTML_ዲዛይን = """
         body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; color: #333; margin: 0; padding: 20px; }
         .container { max-width: 650px; background: white; margin: 30px auto; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
         h1 { text-align: center; color: #111; }
-        h2 { color: #2c3e50; border-bottom: 2px solid #eaeaea; padding-bottom: 8px; }
+        h2 { color: #2c3e50; border-bottom: 2px solid #eaeaea; padding-bottom: 8px; margin-top: 25px; }
         .subtitle { text-align: center; color: #666; }
         label { font-weight: bold; display: block; margin-top: 15px; margin-bottom: 5px; }
         select, input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
@@ -135,14 +145,19 @@ HTML_ዲዛይን = """
         .gallery img { width: 31%; min-width: 120px; height: 110px; object-fit: cover; border-radius: 8px; }
         .alert { padding: 15px; background-color: #d4edda; color: #155724; border-radius: 8px; margin-top: 15px; text-align: center; }
         .header-icon { text-align: center; font-size: 50px; }
+        .purpose-box { background: #eef2f7; padding: 15px; border-radius: 8px; line-height: 1.6; font-size: 15px; }
+        .support-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; border-radius: 8px; font-size: 15px; }
         body.dark-mode { background: #121212; color: #e0e0e0; }
         body.dark-mode .container { background: #1e1e1e; color: #e0e0e0; }
         body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background: #2d2d2d; color: #ffffff; }
+        body.dark-mode .purpose-box { background: #2d2d2d; color: #e0e0e0; }
+        body.dark-mode .support-box { background: #3a331a; color: #ffeeba; border-left-color: #ffc107; }
         .dark-toggle-btn { position: fixed; top: 15px; right: 15px; background: #333; color: white; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; z-index: 1000; }
     </style>
 </head>
 <body>
     <button class="dark-toggle-btn" onclick="የሁነታ_መቀያየሪያ()">🌓 ጨለማ/ብርሃን</button>
+    
     <div class="container">
         <div class="header-icon">🌆</div>
         <h1>አዲስ አበባን ይወቁ</h1>
@@ -188,8 +203,39 @@ HTML_ዲዛይን = """
         {% endif %}
     </div>
 
+    <div class="container" style="border-top: 5px solid #00c6ff;">
+        
+        <h2>🎯 የዌብ ሳይቱ አላማ</h2>
+        <div class="purpose-box">
+            ይህ ድረ-ገጽ የተመሠረተበት ዋና ዓላማ ውቢቷንና ታሪካዊቷን ዋና ከተማችንን <strong>አዲስ አበባን</strong> ለነዋሪዎችም ሆነ ለጎብኚዎች ይበልጥ ማስተዋወቅ ነው:: በYisco7
+            በከተማዋ ውስጥ የሚገኙ ከ60 በላይ ታዋቂ ሰፈሮችን፣ ታሪካዊ ይዘታቸውን፣ የንግድና የትራንስፖርት መናኸሪያነታቸውን እንዲሁም መገኛ ካርታቸውን በአንድ ማዕከል በማደራጀት 
+            ቀላልና ተደራሽ የሆነ የዲጂታል ከተማ መመሪያ (City Guide) መፍጠር ነው።
+        </div>
+
+        <h2>📞 ሳፖርት እና እርዳታ</h2>
+        <div class="support-box">
+            📌 <strong>ችግር አጋጠመዎት?</strong> ድረ-ገጹን ሲጠቀሙ ማንኛውም አይነት መቆራረጥ ወይም የካርታ አለመታየት ችግር ካጋጠመዎት በደስታ እንረዳዎታለን።<br>
+            📧 <strong>ኢሜይል፦</strong> support@addis-guide.com<br>
+            📱 <strong>ስልክ፦</strong> +251 911 00 00 00 (የስራ ሰዓት)
+        </div>
+
+        <h2>💬 የእርስዎ አስተያየት</h2>
+        <form method="POST" action="/">
+            <input type="hidden" name="ፎርም_አይነት" value="አስተያየት">
+            <label>ስምዎ፦</label>
+            <input type="text" name="አስተያየት_ሰጪ" placeholder="አማራጭ..." >
+            <label>አስተያየት ወይም ጥቆማ፦</label>
+            <textarea name="አስተያየት_መልዕክት" rows="3" placeholder="ሀሳብዎን እዚህ ያካፍሉን..." required></textarea>
+            <button type="submit" class="btn" style="background: linear-gradient(to right, #00c6ff, #0072ff);">✉️ አስተያየት ላክ</button>
+        </form>
+        
+        {% if አስተያየት_መልዕክት %}
+            <div class="alert" style="background-color: #d1ecf1; color: #0c5460;">{{ አስተያየት_መልዕክት }}</div>
+        {% endif %}
+    </div>
+
     <div class="container" style="border-top: 5px solid #0072ff;">
-        <h2>➕ አዲስ ቦታ መመዝገቢያ</h2>
+        <h2>➕ አዲስ ቦታ መመዝገቢያ (ለአስተዳዳሪዎች)</h2>
         <form method="POST" action="/">
             <input type="hidden" name="ፎርም_አይነት" value="መዝግብ">
             <label>የሰፈሩ ስም፦</label>
@@ -258,6 +304,7 @@ def የቦታ_ስሞችን_በምድብ_አምጣ():
 def መነሻ_ገጽ():
     ውጤት = None
     መልዕክት = None
+    አስተያየት_መልዕክት = None
     
     if request.method == 'POST':
         ፎርም_አይነት = request.form.get('ፎርም_አይነት')
@@ -296,9 +343,21 @@ def መነሻ_ገጽ():
                 ግንኙነት.commit()
                 ግንኙነት.close()
                 መልዕክት = f"🎉 '{ስም}' በተሳካ ሁኔታ ተመዝግቧል!"
+                
+        elif ፎርም_አይነት == 'አስተያየት':
+            ሰጪ = request.form.get('አስተያየት_ሰጪ', 'ስም የሌለው ጎብኚ').strip()
+            መልዕክት_ጽሑፍ = request.form.get('አስተያየት_መልዕክት', '').strip()
+            if ሰጪ == "": ሰጪ = "ስም የሌለው ጎብኚ"
+            
+            ግንኙነት = sqlite3.connect(DATABASE_NAME)
+            ጠቋሚ = ግንኙነት.cursor()
+            ጠቋሚ.execute("INSERT INTO አስተያየቶች (ስም, መልዕክት) VALUES (?, ?)", (ሰጪ, መልዕክት_ጽሑፍ))
+            ግንኙነት.commit()
+            ግንኙነት.close()
+            አስተያየት_መልዕክት = f"❤️ እናመሰግናለን {ሰጪ}! አስተያየትዎ በተሳካ ሁኔታ ደርሶናል።"
 
     ምድቦች = የቦታ_ስሞችን_በምድብ_አምጣ()
-    return render_template_string(HTML_ዲዛይን, ምድቦች=ምድቦች, ውጤት=ውጤት, መልዕክት=መልዕክት)
+    return render_template_string(HTML_ዲዛይን, ምድቦች=ምድቦች, ውጤት=ውጤት, መልዕክት=መልዕክት, አስተያየት_መልዕክት=አስተያየት_መልዕክት)
 
 if __name__ == '__main__':
     ፖርት = int(os.environ.get("PORT", 5000))
