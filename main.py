@@ -115,6 +115,7 @@ def ዳታቤዙን_አዘምን():
         if "ታሪካዊ" in ምድብ: ፎቶ_ናሙና = "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3"
         elif "ንግድ" in ምድብ: ፎቶ_ናሙና = "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a"
         elif "ትራንስፖርት" in ምድብ: ፎቶ_ናሙና = "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957"
+        elif "ሃይማኖት" in ምድብ: ፎቶ_ናሙና = "https://images.unsplash.com/photo-1548625361-ec849e7e7215"
         else: ፎቶ_ናሙና = "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
         
         for i in range(3):
@@ -253,6 +254,7 @@ HTML_ዲዛይን = """
                 <option value="🛒 የንግድ ማዕከላት እና ገበያ">🛒 የንግድ ማዕከላት እና ገበያ</option>
                 <option value="🚌 የትራንስፖርት መናኸሪያዎች">🚌 የትራንስፖርት መናኸሪያዎች</option>
                 <option value="🏡 መኖሪያ እና ሌሎች ሰፈሮች">🏡 መኖሪያ እና ሌሎች ሰፈሮች</option>
+                <option value="⛪ የሃይማኖት ስፍራዎች">⛪ የሃይማኖት ስፍራዎች</option>
             </select>
             <label>ሚስጥር ቁጥር፦</label>
             <input type="password" name="ሚስጥር_ቁጥር" required>
